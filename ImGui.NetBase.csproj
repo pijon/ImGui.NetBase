@@ -1,0 +1,91 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ImGui.NetBase</AssemblyName>
+    <RootNamespace>ImGui.NetBase</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ImGui.NET" Version="1.91.6.1" />
+    <PackageReference Include="NativeLibraryLoader" Version="1.0.13" />
+    <PackageReference Include="Vortice.Direct3D11" Version="2.4.2" />
+  </ItemGroup>
+
+  <PropertyGroup>
+  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <OutputType>WinExe</OutputType>
+    <ApplicationManifest>Resources/app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <None Include="Resources/app.manifest">
+    <Link>app.manifest</Link>
+    <SubType>Designer</SubType>
+  </None>
+</ItemGroup>
+
+<ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+  <None Include="Resources/SDL2.dll">
+    <Link>SDL2.dll</Link>
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+  </None>
+</ItemGroup>
+
+<ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+  <Content Include="Resources/libsdl2.dylib">
+    <Link>libsdl2.dylib</Link>
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+  </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Reference Include="Veldrid.SDL2">
+    <HintPath>veldrid/Veldrid.SDL2.dll</HintPath>
+  </Reference>
+  <Reference Include="Veldrid.StartupUtilities">
+    <HintPath>veldrid/Veldrid.StartupUtilities.dll</HintPath>
+  </Reference>
+  <Reference Include="Veldrid.ImGui">
+    <HintPath>veldrid/Veldrid.ImGui.dll</HintPath>
+  </Reference>
+  <Reference Include="Veldrid">
+    <HintPath>veldrid/Veldrid.dll</HintPath>
+  </Reference>
+  <Reference Include="Veldrid.MetalBindings">
+    <HintPath>veldrid/Veldrid.MetalBindings.dll</HintPath>
+  </Reference>
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Resources\Shaders\GLSL\imgui-vertex.glsl" />
+  <EmbeddedResource Include="Resources\Shaders\GLSL\imgui-vertex-legacy.glsl" />
+  <EmbeddedResource Include="Resources\Shaders\GLSL\imgui-frag.glsl" />
+  <EmbeddedResource Include="Resources\Shaders\GLSLES\imgui-vertex.glsles" />
+  <EmbeddedResource Include="Resources\Shaders\GLSLES\imgui-vertex-legacy.glsles" />
+  <EmbeddedResource Include="Resources\Shaders\GLSLES\imgui-frag.glsles" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-frag.hlsl" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-frag.hlsl.bytes" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-vertex-legacy.hlsl" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-vertex-legacy.hlsl.bytes" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-vertex.hlsl" />
+  <EmbeddedResource Include="Resources\Shaders\HLSL\imgui-vertex.hlsl.bytes" />
+  <EmbeddedResource Include="Resources\Shaders\Metal\imgui-frag.metal" />
+  <EmbeddedResource Include="Resources\Shaders\Metal\imgui-frag.metallib" />
+  <EmbeddedResource Include="Resources\Shaders\Metal\imgui-vertex.metal" />
+  <EmbeddedResource Include="Resources\Shaders\Metal\imgui-vertex.metallib" />
+  <EmbeddedResource Include="Resources\Shaders\SPIR-V\generate-spirv.bat" />
+  <EmbeddedResource Include="Resources\Shaders\SPIR-V\imgui-frag.glsl" />
+  <EmbeddedResource Include="Resources\Shaders\SPIR-V\imgui-frag.spv" />
+  <EmbeddedResource Include="Resources\Shaders\SPIR-V\imgui-vertex.glsl" />
+  <EmbeddedResource Include="Resources\Shaders\SPIR-V\imgui-vertex.spv" />
+</ItemGroup>
+
+</Project>

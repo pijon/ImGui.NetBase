@@ -1,0 +1,20 @@
+bin/
+obj/
+*.user
+*.suo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# ImGui.ini files
+ImGui.ini
+
+# IDE folders
+.vscode/
+.idea/
+*.code-workspace
+
+# NuGet packages
+*.nupkg
+*.snupkg
