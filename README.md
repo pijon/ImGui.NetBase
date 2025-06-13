@@ -1,6 +1,6 @@
 # ImGui.NetBase
 
-This repository contains a minimal example of using [ImGui.NET](https://github.com/ocornut/imgui) on Windows, macOS and Linux.
+This repository contains a minimal example of using [ImGui.NET](https://github.com/ocornut/imgui) on Windows and macOS.
 
 Features demonstrated:
 
