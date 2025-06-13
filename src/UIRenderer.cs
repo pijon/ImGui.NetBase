@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Reflection;
 using Veldrid;
-using static ImGuiNET.ImGui;
+using ImGuiNET;
 
 namespace ImGui.NetBase;
 
@@ -74,7 +74,7 @@ public class UIRenderer : IDisposable
         IntPtr context = ImGuiNET.ImGui.CreateContext();
         ImGuiNET.ImGui.SetCurrentContext(context);
 
-        ImGuiIOPtr io = GetIO();
+        ImGuiIOPtr io = ImGuiNET.ImGui.GetIO();
 
         io.Fonts.AddFontDefault();
         io.Fonts.Flags |= ImFontAtlasFlags.NoBakedLines;
@@ -344,7 +344,7 @@ public class UIRenderer : IDisposable
     /// </summary>
     public unsafe void RecreateFontDeviceTexture(GraphicsDevice gd)
     {
-        ImGuiIOPtr io = GetIO();
+        ImGuiNET.ImGuiIOPtr io = ImGuiNET.ImGui.GetIO();
         // Build
         io.Fonts.GetTexDataAsRGBA32(out byte* pixels, out int width, out int height, out int bytesPerPixel);
 
@@ -389,7 +389,7 @@ public class UIRenderer : IDisposable
         {
             _frameBegun = false;
             ImGuiNET.ImGui.Render();
-            RenderImDrawData(GetDrawData(), gd, cl);
+            RenderImDrawData(ImGuiNET.ImGui.GetDrawData(), gd, cl);
         }
     }
 
@@ -433,7 +433,7 @@ public class UIRenderer : IDisposable
     /// </summary>
     private unsafe void SetPerFrameImGuiData(float deltaSeconds)
     {
-        ImGuiIOPtr io = GetIO();
+        ImGuiNET.ImGuiIOPtr io = ImGuiNET.ImGui.GetIO();
         io.DisplaySize = new Vector2(
             _windowWidth / io.DisplayFramebufferScale.X,
             _windowHeight / io.DisplayFramebufferScale.Y);
@@ -443,7 +443,7 @@ public class UIRenderer : IDisposable
 
     private bool TryMapKey(Key key, out ImGuiKey result)
     {
-        ImGuiKey keyToImGuiKeyShortcut(Key keyToConvert, Key startKey1, ImGuiKey startKey2)
+        ImGuiNET.ImGuiKey keyToImGuiKeyShortcut(Key keyToConvert, Key startKey1, ImGuiKey startKey2)
         {
             int changeFromStart1 = (int)keyToConvert - (int)startKey1;
             return startKey2 + changeFromStart1;
@@ -611,7 +611,7 @@ public class UIRenderer : IDisposable
 
     private unsafe void UpdateImGuiInput(InputSnapshot snapshot)
     {
-        ImGuiIOPtr io = GetIO();
+        ImGuiIOPtr io = ImGuiNET.ImGui.GetIO();
         io.AddMousePosEvent(snapshot.MousePosition.X, snapshot.MousePosition.Y);
         io.AddMouseButtonEvent(0, snapshot.IsMouseDown(MouseButton.Left));
         io.AddMouseButtonEvent(1, snapshot.IsMouseDown(MouseButton.Right));
@@ -681,7 +681,7 @@ public class UIRenderer : IDisposable
             indexOffsetInElements += (uint)cmd_list.IdxBuffer.Size;
         }
 
-        ImGuiIOPtr io = GetIO();
+        ImGuiIOPtr io = ImGuiNET.ImGui.GetIO();
 
         // Setup orthographic projection matrix into our constant buffer
         {
