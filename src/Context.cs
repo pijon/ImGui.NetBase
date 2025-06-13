@@ -1,5 +1,5 @@
 using Veldrid;
-using Veldrid.ImGui;
+
 using Veldrid.Sdl2;
 using ImGuiNET;
 
@@ -10,21 +10,21 @@ internal sealed class Context : IDisposable
     public Sdl2Window Window { get; }
     public GraphicsDevice GraphicsDevice { get; }
     public CommandList CommandList { get; }
-    public ImGuiController Controller { get; }
+    public UIRenderer UIRenderer { get; }
     public ImGuiIOPtr IO { get; }
 
-    public Context(Sdl2Window window, GraphicsDevice graphicsDevice, CommandList commandList, ImGuiController controller, ImGuiIOPtr io)
+    public Context(Sdl2Window window, GraphicsDevice graphicsDevice, CommandList commandList, UIRenderer renderer, ImGuiIOPtr io)
     {
         Window = window;
         GraphicsDevice = graphicsDevice;
         CommandList = commandList;
-        Controller = controller;
+        UIRenderer = renderer;
         IO = io;
     }
 
     public void Dispose()
     {
-        Controller.Dispose();
+        UIRenderer.Dispose();
         CommandList.Dispose();
         GraphicsDevice.Dispose();
     }
